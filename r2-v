@@ -16,7 +16,7 @@ if ! mkdir -p "${COPIES}"; then
 fi
 
 Fail() {
- printf "$1\n"
+ printf "%s" "$1\n"
  exit 1 
 }
 
