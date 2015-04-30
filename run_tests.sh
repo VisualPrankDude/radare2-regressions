@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (C) 2011-2013  pancake <pancake@nopcode.org>
+# Copyright (C) 2011-2015  pancake <pancake@nopcode.org>
 # Copyright (C) 2011-2012  Edd Barrett <vext01@gmail.com>
 # Copyright (C) 2012       Simon Ruderich <simon@ruderich.org>
 #
@@ -19,8 +19,7 @@
 
 cd `dirname $0` 2>/dev/null
 
-r2 -v
-if [ $? != 0 ]; then
+if ! r2 -v; then
 	echo "Cannot find r2"
 	exit 1
 fi
@@ -44,8 +43,7 @@ trap control_c 2
 
 . ./tests.sh
 
-r2 > /dev/null
-if [ $? != 0 ]; then
+if ! r2 > /dev/null; then
   echo "Cannot find r2"
   exit 1
 fi
@@ -67,7 +65,7 @@ for file in * ; do
       cd $file
       for file2 in *; do
          [ "$file2" = '*' ] && break
-         TEST_NAME=$(echo "${file2}" | sed 's/.sh$//')
+         TEST_NAME="${file2//\.sh//}"
 	 NAME=`basename $file2`
          TEST_NAME=$file
          if [ -f "${file2}" ]; then
